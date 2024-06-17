@@ -26,11 +26,10 @@ function getSuitSymbol(suit: TCardSuits): string {
 }
 
 const suitSymbol = computed(() => getSuitSymbol(props.suit))
-console.log('kris:', suitSymbol, getSuitSymbol(props.suit))
 </script>
 
 <style scoped lang="scss">
 .suit {
-  font-size: 3em;
+  font-size: clamp(3em, 8vw, 5em);
 }
 </style>

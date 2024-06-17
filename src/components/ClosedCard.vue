@@ -1,11 +1,11 @@
 <template>
-  <div class="card"></div>
+  <div class="closed-card"></div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style scoped>
-.card {
+.closed-card {
   width: var(--card-width);
   height: var(--card-height);
   background-image: url('src/assets/closed-card.svg');

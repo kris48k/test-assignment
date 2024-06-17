@@ -1,19 +1,19 @@
 <template>
   <div class="game">
-    <div class="game__pile">
-      <OpenCard :card="{ rank: 'Q', suit: 'hearts' }" />
+    <div class="pile">
+      <OpenCard :card="topCard" class="pile__top-card" />
     </div>
 
     <TransitionGroup
       name="flipping-card"
-      :duration="{ enter: 5000, leave: 5000 }"
+      :duration="{ enter: 1000, leave: 2000 }"
       class="game__cards-to-choose"
       tag="div"
+      @after-leave="onFlipFinished"
     >
       <FlippingCard
         v-for="card in cards"
         :card="card"
-        @afterFlip="onFlipFinished"
         :key="card.rank + card.suit"
         :data-index="card.rank + card.suit"
       />
@@ -29,19 +29,27 @@ import OpenCard from './OpenCard.vue'
 import { ref } from 'vue'
 import type { ICard } from '@/types/ICard'
 
-const middleCardFlipped = ref<boolean>(false)
 const cards = ref<ICard[]>([
-  { rank: 'Q', suit: 'spades' },
-  { rank: 'J', suit: 'hearts' },
-  { rank: '5', suit: 'clubs' }
+  { rank: 'J', suit: 'spades' },
+  { rank: 'Q', suit: 'hearts' },
+  { rank: '10', suit: 'clubs' }
 ])
 
+const topCard = ref<ICard>({ rank: 'Q', suit: 'spades' })
+const movingCard = ref<ICard | null>(null)
+
 function onFlipBtnClick() {
-  cards.value.splice(1, 1)
-  middleCardFlipped.value = true
+  movingCard.value = cards.value[1]
+  cards.value = [cards.value[0], cards.value[2]]
 }
 
-function onFlipFinished() {}
+function onFlipFinished() {
+  if (movingCard.value) {
+    topCard.value = movingCard.value
+    cards.value.push(movingCard.value)
+    movingCard.value = null
+  }
+}
 </script>
 
 <style lang="scss">
@@ -51,12 +59,26 @@ function onFlipFinished() {}
   justify-content: center;
   align-items: center;
   height: 100svh;
-  row-gap: 50px;
+  row-gap: var(--lines-gap);
   overflow: auto;
+  position: relative;
 
-  &__pile {
-    width: clamp(120px, 20vw, 185px);
-    height: clamp(180px, 30vw, 276px);
+  .pile {
+    width: var(--pile-card-width);
+    height: var(--pile-card-height);
+    position: relative;
+
+    &__top-card {
+      box-shadow:
+        0px 4px 0px white,
+        0px 4px 4px -2px black,
+        0px 8px 0px white,
+        0px 8px 4px -2px black,
+        0px 12px 0px white,
+        0px 12px 4px -2px black,
+        0px 16px 0px white,
+        0px 16px 4px -2px black;
+    }
   }
 
   &__cards-to-choose {
@@ -69,21 +91,6 @@ function onFlipFinished() {}
     position: absolute;
     right: 10px;
     bottom: 10px;
-  }
-}
-
-.flipping-card-enter-active,
-.flipping-card-leave-active {
-  transition: all 5s ease;
-  border: red 1px solid;
-}
-
-.flipping-card-leave-active {
-  .card__side--back {
-    animation: flip-back 3s ease-in;
-  }
-  .card__side--front {
-    animation: flip-front 3s ease-in;
   }
 }
 </style>

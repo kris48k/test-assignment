@@ -15,10 +15,4 @@ main {
   background-repeat: no-repeat;
   height: 100vh;
 }
-
-@media screen and (max-width: 768px) {
-  main {
-    background-image: url('assets/bg-mobile.svg');
-  }
-}
 </style>

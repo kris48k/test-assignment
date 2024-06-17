@@ -20,9 +20,9 @@ const props = defineProps<{
 .open-card {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  background-color: white;
   border-radius: var(--card-border-radius);
-  position: relative;
+  box-shadow: 0px 0px 5px gray;
 
   &--hearts,
   &--diamonds {
@@ -31,18 +31,17 @@ const props = defineProps<{
 
   &__rank {
     font-weight: 600;
-    font-size: 2em;
-    // line-height: 57.61px;
+    font-size: clamp(2em, 6vw, 3.5em);
     font-family: 'bahnschriftregular', arial, sans-serif;
     position: absolute;
-    top: 0.2em;
-    left: 0.5em;
+    top: 4%;
+    left: 15%;
   }
 
   &__suit {
     position: absolute;
-    top: 3em;
-    left: 1.5em;
+    top: 20%;
+    left: 13%;
   }
 }
 </style>
