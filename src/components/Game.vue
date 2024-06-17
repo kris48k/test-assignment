@@ -94,10 +94,13 @@ function onFlipFinished() {
     width: calc(min(100vw, 345px) - 20px);
     height: 73px;
     border-radius: 12px;
-    border: 1px;
-    opacity: 0px;
     background: linear-gradient(180deg, #4457ff 0%, #3c4de1 100%);
     border: 1px solid #4456fe;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: center;
   }
 }
 </style>
