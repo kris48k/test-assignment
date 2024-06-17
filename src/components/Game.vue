@@ -52,7 +52,7 @@ function onFlipFinished() {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .game {
   display: flex;
   flex-direction: column;
@@ -91,6 +91,13 @@ function onFlipFinished() {
     position: absolute;
     right: 10px;
     bottom: 10px;
+    width: calc(min(100vw, 345px) - 20px);
+    height: 73px;
+    border-radius: 12px;
+    border: 1px;
+    opacity: 0px;
+    background: linear-gradient(180deg, #4457ff 0%, #3c4de1 100%);
+    border: 1px solid #4456fe;
   }
 }
 </style>
